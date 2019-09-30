@@ -1,4 +1,7 @@
-# Spring Boot 
+# Spring Boot 2.x Practices
+
+> SpringBoot 2.1.8-RELEASE
+
 ## Quick Start
 
 ### 环境准备
@@ -272,3 +275,15 @@ dependencies {
 - log4j2.xml
 
 详见 `log4j2.xml` 文件内容
+
+## Exception
+
+### @ControllerAdvice
+通过在类上添加 `@ControllerAdvice` 注解声明全局异常处理类。
+
+### @ExceptionHandler
+通过在方法上添加 `@ExceptionHandler` 注解声明捕获的异常类型。
+- 比如：`@ExceptionHandler(value = ArithmeticException.class)`，请求 `http://localhost:8080/div/1/0` 查看结果。
+- 比如：`@ExceptionHandler(value = NumberFormatException.class)`，请求 `http://localhost:8080/div/1/a` 查看结果。
+
+以上实现详见 `io.github.shankai.springboot.except.GlobalAdvice`类。
