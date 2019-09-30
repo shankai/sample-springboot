@@ -249,3 +249,26 @@ String notExist;
 2019-09-30 13:06:48.743  INFO 98934 --- [nio-8091-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-09-30 13:06:48.748  INFO 98934 --- [nio-8091-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
 ```
+
+
+## Logger
+
+SpringBoot + Log4j2 + Lombok 示例
+
+- build.gradle
+```
+configurations {
+	providedRuntime
+	all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+}
+
+dependencies {
+	...
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+   ...
+}
+```
+
+- log4j2.xml
+
+详见 `log4j2.xml` 文件内容
