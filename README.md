@@ -287,3 +287,25 @@ dependencies {
 - 比如：`@ExceptionHandler(value = NumberFormatException.class)`，请求 `http://localhost:8080/div/1/a` 查看结果。
 
 以上实现详见 `io.github.shankai.springboot.except.GlobalAdvice`类。
+
+## Interceptor
+
+1. 自定义拦截器，需要实现 `HandlerInterceptor` 接口；
+  - preHandle: 在控制器之前触发；
+  - postHandle: 在控制器之后触发；
+  - afterCompletion：请求响应成功后触发；
+2. 将自定义拦截器注册到容器上下文；
+3. 访问 `http://localhost:8080/`，成功后控制台日志输出：
+
+```
+...
+2019-09-30 23:02:50.233  INFO 20058 --- [nio-8080-exec-1] i.g.s.s.interceptor.MyInterceptor        : --- preHandle ---
+2019-09-30 23:02:50.239  INFO 20058 --- [nio-8080-exec-1] i.g.s.s.interceptor.DemoApplication      : >>> request >>>
+2019-09-30 23:02:50.256  INFO 20058 --- [nio-8080-exec-1] i.g.s.s.interceptor.MyInterceptor        : --- postHandle ---
+2019-09-30 23:02:50.256  INFO 20058 --- [nio-8080-exec-1] i.g.s.s.interceptor.MyInterceptor        : --- afterCompletion ---
+...
+```
+
+## Filter
+
+自定义过滤器需要实现 `javax.servlet.Filter`
