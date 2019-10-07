@@ -346,3 +346,29 @@ RestTemplate restTemplate;
 - Delete `http://localhost:9090/template/delete/{id}`
 ```
 
+## File
+### 创建文件存储目录
+`mkdir -p /var/tmp/springboot/upload/`
+
+### 上传文件
+
+`MultipartFile` 用作请求参数，请求类型为 `multipart/form-data`。
+
+- 代码示例
+```
+...
+@RequestMapping(value = "upload", method = RequestMethod.POST)
+public String upload(@RequestParam("file") MultipartFile file) throws IOException {
+...
+```
+- 调用示例
+```
+curl -X POST \
+  http://localhost:8080/upload \
+  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
+  -F file=@/Users/shankai/Desktop/ca.crt
+```
+
+### 下载文件
+
+`ResponseEntity` 响应体为 `InputStreamResource` 对象。
