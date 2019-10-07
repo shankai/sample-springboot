@@ -448,3 +448,16 @@ src/main/resources/static/js/*.js
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 ```
+
+## I18N
+
+默认根据用户浏览器环境设定显示语种。
+```
+http://localhost:8080/index
+```
+
+本示例支持通过 `locale` 参数指定显示语种。注：`my` 只是随意自定义的语种代码。
+```
+http://localhost:8080/index?locale=my
+http://localhost:8080/index?locale=en
+```
