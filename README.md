@@ -309,3 +309,40 @@ dependencies {
 ## Filter
 
 自定义过滤器需要实现 `javax.servlet.Filter`
+
+## RestTemplate
+
+可以简单理解为调用 restful api 的 Web HttpClient。
+
+### 实例化 RestTemplate
+
+- 声明 Bean
+```
+@Bean
+public RestTemplate getRestTemplate() {
+   return new RestTemplate();
+}
+```
+- 自动装配
+```
+@Autowired
+RestTemplate restTemplate;
+```
+
+### 运行操作步骤
+1. 启动 `restful` 示例应用（端口`8080`）；
+2. 启动 `rest-template` 示例应用（端口`9090`）；
+3. 访问验证接口。
+
+```
+- Get `http://localhost:9090/template/get` 
+
+- Post `http://localhost:9090/template/post` with User Json
+
+- Get One `http://localhost:9090/template/get/{id}` 
+
+- Put `http://localhost:9090/template/put/{id}` with User Json
+
+- Delete `http://localhost:9090/template/delete/{id}`
+```
+
