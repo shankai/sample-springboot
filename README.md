@@ -372,3 +372,79 @@ curl -X POST \
 ### 下载文件
 
 `ResponseEntity` 响应体为 `InputStreamResource` 对象。
+
+
+## Simple Webapp
+
+> generate by `https://start.spring.io/`
+
+The project include:
+
+- H2database
+- @Repository
+- @Service
+- @Entity & @Id 
+- @Controller
+- Thymeleaf
+
+### H2database
+
+- 依赖
+
+build.gradle 文件加入以下内容
+```
+dependencies {
+   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+   runtimeOnly 'com.h2database:h2'
+   runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+}
+```
+
+- 建库与初始化数据(可通过更改配置调整文件目录)
+```
+src/main/resources/schema.sql
+src/main/resources/data.sql
+```
+
+- H2 数据库测试界面(依赖: `org.springframework.boot:spring-boot-devtools`)
+http://localhost:8080/h2
+
+### @Repository
+
+通过继承 `CrudRepository<User, String>`，实现单表 CRUD 操作。
+
+### @Service
+
+通过 @Service 声明 Bean, 标识该 Bean 是一个 Service。
+
+### @Entity & @Id 
+
+JavaBean 声明为 JPA 实体
+```
+import javax.persistence.Entity;
+import javax.persistence.Id;
+```
+
+### Thymeleaf
+
+HTML & CSS & Javascript(jQuery)
+
+- 依赖
+```
+implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+```
+
+- 文件目录规范
+```
+src/main/resources/templates/*.html
+src/main/resources/static/css/*.css
+src/main/resources/static/js/*.js
+```
+
+- 运行服务
+访问 `http://localhost:8080/index` 查看页面显示。
+
+若出现脚本错误，有可能是 jQuery 加载问题。可以切换到其他 CDN 或将 jquery 本地化。
+```
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+```

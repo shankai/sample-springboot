@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <link href="css/style.css" rel="stylesheet">
+    <title>Thymeleaf Index Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#reload").on('click', function () {
+                $.getJSON("http://localhost:8080/rest/users", function (result) {
+                    console.log("reload:", result)
+                    $("#users tbody").empty();
+                    $.each(result, function (key, value) {
+                        var row = "<tr><td>" + value.id + "</td><td>" + value.name + "</td><td>" + value.age + "</td></tr>";
+                        $("#users tbody").append(row);
+                    });
+                });
+            }).click();
+
+            $("#create").on('click', function () {
+                var val = $("#userinput")[0].value;
+                console.log(val);
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/rest/user",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: val,
+                    dataType: 'json',
+                    success: function (data) {
+                        console.info(data);
+                        $("#reload").click();
+                    },
+                    error: function (data) {
+                        console.error(data);
+                    }
+                });
+            });
+
+
+        });
+
+
+
+    </script>
+</head>
+
+<body>
+    <p>
+        Hi, index.html
+    </p>
+
+    <hr>
+    
+    <table id="users">
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button id="reload">Reload</button>
+
+    <hr>
+    <textarea id="userinput" cols="50" rows="10">
+    {
+        "id": "5",
+        "name": "user5",
+        "age": 25
+    }
+    </textarea>
+    <button id="create">Create</button>
+</body>
+
+</html>

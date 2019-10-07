@@ -1,0 +1,14 @@
+body > p {
+    font-weight: bolder;
+    font-size: x-large;
+    background-color: azure;
+}
+
+table
+{
+    border-collapse:collapse;
+}
+table,th, td
+{
+    border: 1px solid black;
+}
