@@ -461,3 +461,16 @@ http://localhost:8080/index
 http://localhost:8080/index?locale=my
 http://localhost:8080/index?locale=en
 ```
+
+## Schedule
+
+1. 启用 Schedule `@EnableScheduling`
+
+2. 触发器 `@Scheduled`
+
+   - Cron 定时器表达式 `@Scheduled(cron="0,10,20,30,40,50 * * * * ?")` 遇到 0,10,20,30,40,50 秒时执行一次。
+
+   - 固定频率 `@Scheduled(fixedRate = 1000)` 每秒执行一次， `fixedRate` 单位为毫秒。
+
+   - 固定间隔 `@Scheduled(initialDelay = 1000, fixedDelay = 3000)` 初始化后延迟 1s 执行，以后每隔 3s 执行一次。
+
