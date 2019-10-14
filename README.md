@@ -474,3 +474,25 @@ http://localhost:8080/index?locale=en
 
    - 固定间隔 `@Scheduled(initialDelay = 1000, fixedDelay = 3000)` 初始化后延迟 1s 执行，以后每隔 3s 执行一次。
 
+## Jetty/Undertow
+
+> https://docs.spring.io/spring-boot/docs/current/reference/html/howto-embedded-web-servers.html
+
+### Jetty 
+
+编辑 `build.gradle`, 添加 `jetty` 依赖, 排除默认的 `tomcat` 依赖。
+```
+implementation ('org.springframework.boot:spring-boot-starter-web') {
+   exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+}
+implementation 'org.springframework.boot:spring-boot-starter-jetty'
+```
+### Undertow
+
+与 Jetty 类似，编辑 `build.gradle`, 添加 ` undertow` 依赖, 排除默认的 `tomcat` 依赖。
+```
+implementation ('org.springframework.boot:spring-boot-starter-web') {
+   exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+}
+implementation 'org.springframework.boot:spring-boot-starter-undertow'
+```
