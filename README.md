@@ -496,3 +496,35 @@ implementation ('org.springframework.boot:spring-boot-starter-web') {
 }
 implementation 'org.springframework.boot:spring-boot-starter-undertow'
 ```
+## Swagger 
+
+### 添加依赖 `build.gradle`
+```
+dependencies {
+   ...
+   implementation 'io.springfox:springfox-swagger2:2.9.2'
+   implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+   ...
+}
+```
+
+### 启用 Swagger2 
+`@EnableSwagger2` (至少要结合 `@Configuration`, 示例中直接与 `@SpringBootApplication` 结合)
+
+### 访问
+
+   - 访问 api-docs, `http://localhost:8080/v2/api-docs`
+   - 访问 swagger-ui, `http://localhost:8080/swagger-ui.html`
+
+### Swagger 设置
+
+> Springfox 提供了一个 Docket 对象，让我们可以灵活的配置 Swagger 的各项属性。
+
+```
+@Bean
+public Docket api() {
+   return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any()).paths(PathSelectors.any()).build();
+}
+```
+
+更多用法请参考：`http://springfox.github.io/springfox/docs/current/`
