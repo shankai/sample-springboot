@@ -528,3 +528,90 @@ public Docket api() {
 ```
 
 更多用法请参考：`http://springfox.github.io/springfox/docs/current/`
+
+## Actuator
+
+> 更多参考: https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/production-ready-endpoints.html
+
+1. build.gradle
+```
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
+```
+
+2. application.properties
+
+> 在 `application.properties` 文件中，需要禁用执行器端点的安全性。
+
+```
+# 管理端点/info 接口返回数据
+info.app.name=spring-boot-actuator
+info.app.version=1.0.0
+info.app.test=sample
+
+# 启用所有接口
+management.endpoints.web.exposure.include=*
+# 启用部分接口
+# management.endpoints.web.exposure.exclude=beans,trace
+# 管理端点根路径
+management.endpoints.web.base-path=/manage
+```
+
+3. Rest API Example
+
+```
+http://localhost:8080/
+http://localhost:8080/response
+```
+
+4. Actuator API Example
+
+> 更多参考: https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/production-ready-endpoints.html
+
+- `http://localhost:8080/manage/info`
+```
+{"app":{"name":"spring-boot-actuator","version":"1.0.0","test":"sample"}}
+```
+
+- `http://localhost:8080/manage/health`
+```
+{"status":"UP"}
+```
+
+## Admin
+
+### Admin Server 
+
+1. build.gradle
+```
+implementation 'de.codecentric:spring-boot-admin-starter-server'
+```
+
+2. `@EnableAdminServer`
+3. application.properties
+```
+server.port=8000
+```
+
+4. `http://localhost:8000`
+
+### Admin Client
+
+1. build.gradle
+```
+implementation 'de.codecentric:spring-boot-admin-starter-client'
+```
+
+2. application.properties
+```
+spring.application.name=Admin Client
+spring.boot.admin.client.url=http://localhost:8000
+management.endpoints.web.exposure.include=*
+```
+
+3. 启动 client 前确保 server 启动, 启动成功后访问服务端 UI: `http://localhost:8000`
+
+### Admin With DiscoveryServer
+
+- Eureka
+- Consul
+...
