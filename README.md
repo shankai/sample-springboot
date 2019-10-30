@@ -615,3 +615,37 @@ management.endpoints.web.exposure.include=*
 - Eureka
 - Consul
 ...
+
+## Flyway
+
+> `www.flywaydb.org`
+
+1. build.gradle
+```
+implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+implementation 'org.springframework.boot:spring-boot-starter-web'
+implementation 'org.flywaydb:flyway-core'
+implementation 'mysql:mysql-connector-java'
+```
+
+2. application.properties
+```
+spring.application.name=springboot-flyway
+
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://172.16.18.143:3306/flyway?autoreconnect=true
+spring.datasource.username=root
+spring.datasource.password=root
+
+spring.flyway.url=jdbc:mysql://172.16.18.143:3306/flyway
+spring.flyway.schemas=flyway
+spring.flyway.user=root
+spring.flyway.password=root
+```
+3. migration `src/main/resources/db/migration/V1__init.sql`
+```
+CREATE TABLE USERS (ID INT AUTO_INCREMENT PRIMARY KEY, USERID VARCHAR(45));
+INSERT INTO USERS (ID, USERID) VALUES (1, 'springboot-flyway');
+COMMIT;
+```
+Flyway 规范参考官网: `www.flywaydb.org`
