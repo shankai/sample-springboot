@@ -649,3 +649,40 @@ INSERT INTO USERS (ID, USERID) VALUES (1, 'springboot-flyway');
 COMMIT;
 ```
 Flyway 规范参考官网: `www.flywaydb.org`
+
+## Batch
+
+> 该示例为极简版, 实际应用情况中批处理会结合文件系统及持久化服务等
+
+1. build.gradle
+```
+implementation 'org.springframework.boot:spring-boot-starter-batch'
+implementation group: 'com.h2database', name: 'h2', version: '1.4.200'
+compileOnly 'org.projectlombok:lombok'
+annotationProcessor 'org.projectlombok:lombok'
+```
+
+2. 实现类扩展
+- ItemProcessor 数据项处理 (本示例中为每一项拼接 `-item-processor`)
+- ItemReader 读取数据 (本示例模拟一个包含 6 个元素的列表)
+- ItemWriter 写入数据 (本示例模拟将处理后的元素集合通过 `,` 分隔, 并将最终结果放入系统属性中 `System.setProperty`)
+- JobExecutionListenerSupport 执行监听器 (本示例任务执行结果监听, 执行完成后从系统属性中获取批处理结果 `System.getProperty("SpringBatch")`)
+- JobBuilderFactory 任务构造工厂 (本示例设置任务执行监听器及任务步骤流)
+- StepBuilderFactory 步骤构造工厂 (本示例设置任务步骤, `reader` + `processor` + `writer`)
+
+3. `@EnableBatchProcessing`
+
+4. 执行后控制台日志
+
+```
+2019-11-01 13:55:42.533  INFO 90826 --- [           main] i.g.shankai.springboot.batch.MyListener  : My Job Execution COMPLETED
+2019-11-01 13:55:42.535  INFO 90826 --- [           main] i.g.shankai.springboot.batch.MyListener  : Writer Result: 1-item-processor,2-item-processor,3-item-processor,4-item-processor,5-item-processor,6-item-processor
+```
+
+5. application.properties
+> 本示例以下配置没有实际应用意义，只为了能够让应用正常运行
+```
+# spring.batch.job.enabled=false
+spring.datasource.url=jdbc:h2:file:./DB
+spring.jpa.properties.hibernate.hbm2ddl.auto=update
+```
