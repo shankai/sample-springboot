@@ -686,3 +686,7 @@ annotationProcessor 'org.projectlombok:lombok'
 spring.datasource.url=jdbc:h2:file:./DB
 spring.jpa.properties.hibernate.hbm2ddl.auto=update
 ```
+
+## Rest Unit Test 
+
+simple rest unit test sample.
