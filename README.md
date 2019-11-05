@@ -733,3 +733,21 @@ kafka.topic.sample=springboot-kafka-sample
 
 1. KakfaConsume.java `@KafkaListener`,`@Payload`
 2. KafkaConsumeConfig.java `consumerFactory`, `consumerConfigs`, `kafkaListenerContainerFactory`
+
+## WebSocket
+
+1. WebSocketServer.java: `@ServerEndpoint`, `@OnOpen`, `@OnClose`, `@OnError`, `@OnMessage`
+2. WebSocketConfig.java: `ServerEndpointExporter`
+3. WebSocketController.java 
+
+### 测试
+
+打开两个浏览器页签, 地址栏输入 `http://localhost:8080/`, 模拟两个客户端接入，之后分别开启浏览器控制台(Console)查看消息。
+
+- 群发
+
+`curl -X GET 'http://localhost:8080/api/ws/sendAll?message=AABB1' `，请求后此时两个控制台均输出 `AABB1` 的消息。
+
+- 单发
+
+假设有 id=1 的客户端会话， `curl -X GET 'http://localhost:8080/api/ws/sendOne?message=msg111&id=1' `, 请求后只有 id=1 的会话客户端控制台收到消息 `msg111`，其他客户端不会收到消息。
