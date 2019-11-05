@@ -690,3 +690,46 @@ spring.jpa.properties.hibernate.hbm2ddl.auto=update
 ## Rest Unit Test 
 
 simple rest unit test sample.
+
+## Spring Kafka
+
+### Kafka Deploy & Start
+
+- Deploy
+```
+wget http://mirrors.tuna.tsinghua.edu.cn/apache/kafka/2.3.0/kafka_2.12-2.3.0.tgz
+tar -xzf kafka_2.12-2.3.0.tgz
+cd kafka_2.12-2.3.0
+```
+
+- Config `config/server.properties`
+```
+...
+listeners=PLAINTEXT://172.16.18.143:9092
+...
+```
+
+- Start Kafka
+```
+bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/kafka-server-start.sh config/server.properties
+```
+
+### SpringBoot Kafka Producer
+
+1. KafkaProduce.java: `KafkaTemplate`
+2. KafkaProduceConfig.java: `producerFactory`, `producerConfigs`,`kafkaTemplate`
+3. KafkaSampleApplication `implements CommandLineRunner`
+
+application.properties
+```
+# kafka server
+spring.kafka.bootstrap-servers=172.16.18.143:9092
+
+# topic 
+kafka.topic.sample=springboot-kafka-sample
+```
+### SpringBoot kafka Consumer
+
+1. KakfaConsume.java `@KafkaListener`,`@Payload`
+2. KafkaConsumeConfig.java `consumerFactory`, `consumerConfigs`, `kafkaListenerContainerFactory`
